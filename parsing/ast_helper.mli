@@ -74,6 +74,7 @@ module Pat:
     val lazy_: ?loc:loc -> ?attrs:attrs -> pattern -> pattern
     val unpack: ?loc:loc -> ?attrs:attrs -> str -> pattern
     val extension: ?loc:loc -> ?attrs:attrs -> extension -> pattern
+    val with_: ?loc:loc -> ?attrs:attrs -> pattern -> (pattern * expression) list -> pattern
   end
 
 (** Expressions *)

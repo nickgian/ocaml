@@ -229,6 +229,10 @@ and pattern i ppf x =
   | Ppat_extension (s, arg) ->
       line i ppf "Ppat_extension \"%s\"\n" s.txt;
       payload i ppf arg
+  | Ppat_with (p, l) ->
+      line i ppf "Ppat_with \n";
+      pattern i ppf p;
+      with_patterns i ppf l
 
 and expression i ppf x =
   line i ppf "expression %a\n" fmt_location x.pexp_loc;
@@ -399,6 +403,15 @@ and payload i ppf = function
     line i ppf "<when>\n";
     expression (i + 1) ppf g
 
+and with_patterns i ppf l = 
+  let i = i+1 in
+  List.iter
+    (fun (pat, expr) ->
+      line i ppf "with "; 
+      pattern i ppf pat;
+      line i ppf " = ";
+      expression i ppf expr
+    ) l    
 
 and type_kind i ppf x =
   match x with

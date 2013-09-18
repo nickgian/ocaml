@@ -1348,6 +1348,9 @@ pattern:
       { mkpat(Ppat_lazy $2) }
   | pattern attribute
       { Pat.attr $1 $2 }
+  | simple_pattern with_patterns
+      { mkpat(Ppat_with($1, $2)) }
+
 ;
 simple_pattern:
     val_ident %prec below_EQUAL
@@ -1420,6 +1423,10 @@ lbl_pattern:
       { (mkrhs $1 1,$3) }
   | label_longident
       { (mkrhs $1 1, pat_of_label $1 1) }
+;
+with_patterns:
+    WITH pattern EQUAL seq_expr { [($2, $4)] }
+  | with_patterns WITH pattern EQUAL seq_expr { ($3, $5) :: $1 }
 ;
 
 /* Primitive declarations */

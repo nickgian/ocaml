@@ -316,6 +316,9 @@ module P = struct
     | Ppat_lazy p -> lazy_ ~loc ~attrs (sub # pat p)
     | Ppat_unpack s -> unpack ~loc ~attrs (map_loc sub s)
     | Ppat_extension x -> extension ~loc ~attrs (sub # extension x)
+    | Ppat_with (p, l) ->
+        with_ ~loc ~attrs (sub # pat p) 
+              (List.map (map_tuple (sub # pat) (sub # expr)) l) 
 end
 
 module CE = struct

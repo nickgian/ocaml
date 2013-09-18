@@ -173,6 +173,10 @@ and pattern_desc =
          *)
   | Ppat_extension of extension
         (* [%id] *)
+  | Ppat_with of pattern * (pattern * expression) list
+        (* P with P1 = expr
+             ...
+             with Pn = expr*) 
 
 (* Value expressions *)
 
